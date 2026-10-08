@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PPN</title>
+<meta name="description" content="Trang giới thiệu bản thân: học vấn, kỹ năng, dự án và thông tin liên hệ.">
+<meta name="theme-color" content="#F1F4F9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F4F9; --surface:#FFFFFF; --ink:#0F1B2D; --muted:#4B5A73; --line:#D3DBE8;
+  --accent:#0F766E; --accent-ink:#FFFFFF; --chip-bg:#D9F0EC; --chip-ink:#0B4F49;
+  --win:#0E1726; --win-line:#22304A;
+  --font-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-head:"Bricolage Grotesque","Be Vietnam Pro",system-ui,sans-serif;
+  --font-code:"JetBrains Mono",ui-monospace,Consolas,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0B1220; --surface:#121C2F; --ink:#E8EEF8; --muted:#9AA9C2; --line:#26344D;
+    --accent:#5EEAD4; --accent-ink:#04201C; --chip-bg:#12332F; --chip-ink:#A7F3E8;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1rem;line-height:1.7}
+a{color:inherit}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:6px;z-index:20}
+.skip:focus{left:8px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,32px)}
+
+/* Thanh điều hướng */
+.top{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 24px;padding-block:12px}
+.brand{font-family:var(--font-head);font-weight:700;font-size:1.15rem;text-decoration:none}
+.nav-links{display:flex;flex-wrap:wrap;gap:4px 20px;list-style:none;margin:0;padding:0;font-size:.95rem}
+.nav-links a{text-decoration:none;color:var(--muted);padding:4px 0}
+.nav-links a:hover{color:var(--ink)}
+
+/* Khối chung của từng mục */
+.section{padding-block:clamp(56px,9vw,104px);scroll-margin-top:56px}
+.section-title{font-family:var(--font-head);font-weight:700;font-size:clamp(1.7rem,3.6vw,2.3rem);line-height:1.15;letter-spacing:-.01em;margin:0 0 clamp(28px,5vw,48px)}
+
+/* Trang chủ */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,6vw,64px);align-items:center;padding-block:clamp(48px,8vw,96px)}
+.avatar{width:84px;height:84px;border-radius:50%;object-fit:cover;margin-bottom:18px;border:2px solid var(--line)}
+.hello{margin:0 0 6px;color:var(--muted);font-size:1.1rem}
+.name{font-family:var(--font-head);font-weight:700;font-size:clamp(2.6rem,7.2vw,4.8rem);line-height:1.02;letter-spacing:-.025em;margin:0 0 14px}
+.role{font-size:1.2rem;font-weight:500;color:var(--accent);margin:0 0 18px}
+.bio{max-width:58ch;color:var(--muted);margin:0 0 28px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:.7rem 1.25rem;border-radius:8px;font-weight:600;text-decoration:none;border:1.5px solid var(--accent)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{background:transparent;color:var(--accent)}
+
+/* Cửa sổ code ở trang chủ */
+.win{background:var(--win);border:1px solid var(--win-line);border-radius:10px;overflow:hidden;box-shadow:0 22px 44px -28px rgba(8,15,30,.65)}
+.win-bar{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--win-line);color:#8EA0BF;font:400 .78rem var(--font-code)}
+.win-dots{display:flex;gap:6px}
+.win-dots span{width:10px;height:10px;border-radius:50%;background:#33466A}
+.win-code{margin:0;padding:18px;overflow-x:auto;font:400 .86rem/1.75 var(--font-code);color:#E6EDF7}
+.tk-pp{color:#8BA3C7}.tk-kw{color:#7DD3C0}.tk-fn{color:#A5B4FC}.tk-str{color:#F4C77E}
+.win-run{border-top:1px solid var(--win-line);padding:14px 18px 18px;font:400 .84rem/1.7 var(--font-code);color:#8EA0BF;overflow-x:auto}
+.win-run p{margin:0;white-space:pre}
+.win-out{color:#9BE7D8;opacity:0;transition:opacity .5s ease}
+.win-out.is-on{opacity:1}
+
+/* Học vấn */
+.timeline{list-style:none;margin:0;padding:0}
+.t-item{display:grid;grid-template-columns:9rem minmax(0,1fr);gap:4px 28px}
+.t-period{color:var(--muted);font-size:.95rem;padding-top:.15rem}
+.t-body{position:relative;border-left:2px solid var(--line);padding:0 0 32px 26px}
+.t-body::before{content:"";position:absolute;left:-7px;top:.5rem;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--bg)}
+.t-item:last-child .t-body{padding-bottom:0}
+.t-title{font-family:var(--font-head);font-weight:600;font-size:1.3rem;line-height:1.3;margin:0 0 4px}
+.t-detail{margin:0;color:var(--muted);max-width:60ch}
+
+/* Kỹ năng */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px}
+.skill{border-top:3px solid var(--accent);padding-top:16px}
+.skill-title{font-family:var(--font-head);font-weight:600;font-size:1.3rem;margin:0 0 8px}
+.skill-text{margin:0 0 14px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.tag{background:var(--chip-bg);color:var(--chip-ink);font-size:.8rem;font-weight:500;padding:.15rem .7rem;border-radius:999px}
+
+/* Dự án */
+.project{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:14px 44px;padding-block:30px;border-top:1px solid var(--line)}
+.project:last-child{border-bottom:1px solid var(--line)}
+.p-title{font-family:var(--font-head);font-weight:600;font-size:1.35rem;line-height:1.3;margin:0 0 14px}
+.p-desc{margin:0 0 12px}
+.p-list{margin:0 0 14px;padding-left:1.2rem;color:var(--muted)}
+.p-list li{margin-bottom:6px}
+.p-link{font-weight:600;color:var(--accent)}
+
+/* Liên hệ */
+.contact-intro{max-width:56ch;color:var(--muted);margin:0 0 24px}
+.contact-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.contact-list li{display:grid;grid-template-columns:6rem minmax(0,1fr);gap:12px;align-items:baseline}
+.c-label{color:var(--muted)}
+.c-link{font-weight:600;overflow-wrap:anywhere;text-underline-offset:4px}
+
+.foot{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);font-size:.9rem}
+
+@media (max-width:880px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .project{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:560px){
+  .t-item{grid-template-columns:minmax(0,1fr)}
+  .t-period{padding-left:28px}
+  .contact-list li{grid-template-columns:minmax(0,1fr);gap:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .win-out{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua phần điều hướng</a>
+
+<header class="top">
+  <nav class="wrap nav" aria-label="Điều hướng chính">
+    <a class="brand" href="#home" id="brand"></a>
+    <ul class="nav-links">
+      <li><a href="#home">Trang chủ</a></li>
+      <li><a href="#education">Học vấn</a></li>
+      <li><a href="#skills">Kỹ năng</a></li>
+      <li><a href="#projects">Dự án</a></li>
+      <li><a href="#contact">Liên hệ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <section id="home" class="wrap hero" aria-label="Giới thiệu"></section>
+
+  <section id="education" class="section">
+    <div class="wrap">
+      <h2 class="section-title">Học vấn và hoạt động</h2>
+      <ol class="timeline" id="education-list"></ol>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    <div class="wrap">
+      <h2 class="section-title">Kỹ năng</h2>
+      <div class="skills" id="skills-list"></div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="wrap">
+      <h2 class="section-title">Dự án</h2>
+      <div id="projects-list"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="wrap">
+      <h2 class="section-title">Liên hệ</h2>
+      <p class="contact-intro" id="contact-intro"></p>
+      <ul class="contact-list" id="contact-list"></ul>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap" id="foot"></div>
+</footer>
+
+<noscript><p style="padding:24px">Trang này cần bật JavaScript để hiển thị nội dung.</p></noscript>
+
+<script>
+/* =====================================================================
+   CHỈ CẦN SỬA PHẦN NÀY.
+   Mọi nội dung trên trang đều lấy từ đối tượng PROFILE bên dưới.
+   Giữ nguyên dấu nháy kép "..." và dấu phẩy ở cuối mỗi dòng.
+   Các nội dung đang điền là ví dụ, hãy thay bằng thông tin của bạn.
+   ===================================================================== */
+const PROFILE = {
+  name: "PPN",
+  role: "Sinh viên Công nghệ Thông tin",
+  bio: "Mình là sinh viên ngành Công nghệ Thông tin tại Trường Đại học Khoa học Tự nhiên, ĐHQG TP.HCM. Từ những năm cấp ba ở Quốc Học Quy Nhơn đến nay, mình thích làm việc cùng mọi người: dẫn dắt nhóm, thiết kế, viết content, đứng trên sân khấu kịch và kết nối đối ngoại. Mình hướng ngoại, cởi mở và luôn muốn học thêm điều mới.",
+  avatar: "",   // Tên file ảnh đại diện, ví dụ "avatar.jpg" (để cùng thư mục với index.html). Để trống nếu chưa có.
+
+  education: [
+    { period: "2026 – nay",  title: "Trường Đại học Khoa học Tự nhiên, ĐHQG TP.HCM", detail: "Sinh viên ngành Công nghệ Thông tin." },
+    { period: "2023 – 2026", title: "Trường Quốc Học Quy Nhơn", detail: "" }
+  ],
+
+  skills: [
+    { title: "Lãnh đạo hội nhóm",
+      text: "Quen dẫn dắt và điều phối một nhóm cùng làm việc.",
+      tags: ["Leader", "Làm việc nhóm"] },
+    { title: "Công cụ Google",
+      text: "Sử dụng thuần thục các công cụ của Google trong học tập và làm việc.",
+      tags: ["Google"] },
+    { title: "Giao tiếp",
+      text: "Hướng ngoại, cởi mở, dễ làm quen và luôn muốn học hỏi từ mọi người.",
+      tags: ["Giao tiếp", "Cầu tiến"] },
+    { title: "Quản lý thời gian",
+      text: "Sắp xếp công việc hợp lý để vừa học vừa tham gia các hoạt động.",
+      tags: ["Kỷ luật", "Lên kế hoạch"] }
+  ],
+
+  projects: [
+    { title: "Dự án Francétu",
+      desc: "Phó ban Design.",
+      bullets: [],
+      tags: ["Design"],
+      link: { text: "", href: "" }
+    },
+    { title: "CLB Nghệ Thuật – Trường Quốc Học Quy Nhơn",
+      desc: "Thành viên ban Kịch và ban Content.",
+      bullets: [],
+      tags: ["Kịch", "Content"],
+      link: { text: "", href: "" }
+    },
+    { title: "STS – Step to Self",
+      desc: "Thành viên ban Đối ngoại và ban ĐSTT.",
+      bullets: [],
+      tags: ["Đối ngoại"],
+      link: { text: "", href: "" }
+    }
+  ],
+
+  contact: {
+    intro: "Mình luôn vui khi được làm quen thêm bạn mới. Nhắn mình qua các kênh dưới đây nhé.",
+    links: [
+      // Sửa 3 dòng dưới thành thông tin của bạn. Muốn thêm kênh khác thì chép nguyên một dòng rồi sửa.
+      { label: "Email",    text: "email@example.com",         href: "mailto:email@example.com" },
+      { label: "GitHub",   text: "github.com/ppn",            href: "https://github.com/ppn" },
+      { label: "Facebook", text: "facebook.com/ten-cua-ban",  href: "https://facebook.com/ten-cua-ban" }
+    ]
+  }
+};
+/* ===================== HẾT PHẦN CẦN SỬA ===================== */
+
+
+/* ---------- Phần dưới là code dựng trang, không cần sửa ---------- */
+function el(tag, props, ...kids){
+  const n = document.createElement(tag);
+  for (const k in (props || {})){
+    if (k === "class") n.className = props[k];
+    else n.setAttribute(k, props[k]);
+  }
+  kids.flat().forEach(c => { if (c != null) n.append(c.nodeType ? c : document.createTextNode(c)); });
+  return n;
+}
+const $ = id => document.getElementById(id);
+const toAscii = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
+const tagList = arr => el("ul", { class: "tags" }, (arr || []).map(t => el("li", { class: "tag" }, t)));
+
+document.title = PROFILE.name;
+$("brand").textContent = PROFILE.name;
+
+/* Trang chủ */
+(function(){
+  const left = el("div", {},
+    PROFILE.avatar ? el("img", { class: "avatar", src: PROFILE.avatar, alt: "Ảnh của " + PROFILE.name, width: "84", height: "84" }) : null,
+    el("p", { class: "hello" }, "Xin chào, mình là"),
+    el("h1", { class: "name" }, PROFILE.name),
+    el("p", { class: "role" }, PROFILE.role),
+    el("p", { class: "bio" }, PROFILE.bio),
+    el("div", { class: "actions" },
+      el("a", { class: "btn btn-primary", href: "#contact" }, "Liên hệ với mình"),
+      el("a", { class: "btn btn-ghost", href: "#projects" }, "Xem dự án")
+    )
+  );
+
+  const ascii = toAscii(PROFILE.name);
+  const S = (c, t) => el("span", { class: c }, t);
+  const code = el("pre", { class: "win-code" },
+    el("code", {},
+      S("tk-pp", "#include <stdio.h>"), "\n\n",
+      S("tk-kw", "int"), " ", S("tk-fn", "main"), "()\n{\n",
+      "    ", S("tk-fn", "printf"), "(", S("tk-str", '"Xin chao, minh la %s\\n"'), ", ", S("tk-str", '"' + ascii + '"'), ");\n",
+      "    ", S("tk-kw", "return"), " 0;\n}"
+    )
+  );
+  const out = el("p", { class: "win-out" }, "Xin chao, minh la " + ascii);
+  const win = el("div", { class: "win" },
+    el("div", { class: "win-bar" },
+      el("span", { class: "win-dots", "aria-hidden": "true" }, el("span"), el("span"), el("span")),
+      "main.c"
+    ),
+    code,
+    el("div", { class: "win-run" }, el("p", {}, "$ gcc main.c -o main && ./main"), out)
+  );
+  $("home").append(left, win);
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) out.classList.add("is-on");
+  else setTimeout(() => out.classList.add("is-on"), 700);
+})();
+
+/* Học vấn */
+PROFILE.education.forEach(e => {
+  $("education-list").append(
+    el("li", { class: "t-item" },
+      el("div", { class: "t-period" }, e.period),
+      el("div", { class: "t-body" },
+        el("h3", { class: "t-title" }, e.title),
+        e.detail ? el("p", { class: "t-detail" }, e.detail) : null
+      )
+    )
+  );
+});
+
+/* Kỹ năng */
+PROFILE.skills.forEach(s => {
+  $("skills-list").append(
+    el("div", { class: "skill" },
+      el("h3", { class: "skill-title" }, s.title),
+      el("p", { class: "skill-text" }, s.text),
+      tagList(s.tags)
+    )
+  );
+});
+
+/* Dự án */
+PROFILE.projects.forEach(p => {
+  const hasLink = p.link && p.link.href && p.link.text;
+  $("projects-list").append(
+    el("article", { class: "project" },
+      el("div", {},
+        el("h3", { class: "p-title" }, p.title),
+        tagList(p.tags)
+      ),
+      el("div", {},
+        el("p", { class: "p-desc" }, p.desc),
+        (p.bullets && p.bullets.length) ? el("ul", { class: "p-list" }, p.bullets.map(b => el("li", {}, b))) : null,
+        hasLink ? el("a", { class: "p-link", href: p.link.href, target: "_blank", rel: "noopener noreferrer" }, p.link.text) : null
+      )
+    )
+  );
+});
+
+/* Liên hệ */
+$("contact-intro").textContent = PROFILE.contact.intro;
+PROFILE.contact.links.forEach(l => {
+  const external = /^https?:/i.test(l.href);
+  const a = el("a", { class: "c-link", href: l.href }, l.text);
+  if (external){ a.setAttribute("target", "_blank"); a.setAttribute("rel", "noopener noreferrer"); }
+  $("contact-list").append(el("li", {}, el("span", { class: "c-label" }, l.label), a));
+});
+
+/* Chân trang */
+$("foot").textContent = "© " + new Date().getFullYear() + " " + PROFILE.name;
+</script>
+</body>
+</html>
